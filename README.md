@@ -1,1 +1,1 @@
-# (Telemetry Web App)[ucdfs.github.io/telemetry]
+# [Telemetry Web App](ucdfs.github.io/telemetry)
