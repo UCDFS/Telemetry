@@ -511,6 +511,110 @@ body {
     flex-wrap: wrap;
 }
 
+/* Floating video player */
+#floatingVideo {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 300px;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+    z-index: 50;
+    overflow: hidden;
+    user-select: none;
+}
+#floatingVideoHeader {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px;
+    background: #0d1a30;
+    border-bottom: 1px solid var(--card-border);
+    cursor: move;
+}
+.floating-label {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+#floatingVideoTime {
+    font-size: 11px;
+    color: var(--text-dim);
+    flex: 1;
+}
+#floatingVideoGoTo {
+    background: transparent;
+    border: none;
+    color: var(--text-dim);
+    cursor: pointer;
+    font-size: 10px;
+    font-family: "JetBrains Mono", monospace;
+    padding: 2px 5px;
+    border-radius: 3px;
+    border: 1px solid var(--card-border);
+    transition: color 0.15s;
+}
+#floatingVideoGoTo:hover {
+    color: var(--text-bright);
+    border-color: var(--accent);
+}
+#floatingVideoBody video {
+    width: 100%;
+    display: block;
+    background: #000;
+    max-height: 168px;
+}
+
+/* Video tab */
+.video-drop-zone {
+    border: 2px dashed var(--card-border);
+    border-radius: 6px;
+    padding: 28px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+}
+.video-drop-zone.dz-hover,
+.video-drop-zone:hover {
+    border-color: var(--accent);
+    background: rgba(78, 189, 107, 0.04);
+}
+.sync-row {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+.sync-field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.sync-label {
+    font-size: 10px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+.sync-input {
+    padding: 6px 10px;
+    border-radius: 3px;
+    border: 1px solid var(--card-border);
+    background: var(--bg);
+    color: var(--text-bright);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 13px;
+    width: 120px;
+}
+.sync-input:focus {
+    outline: none;
+    border-color: var(--accent);
+}
+
 /* Time window slider */
 .time-slider-bar {
     display: flex;

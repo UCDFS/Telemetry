@@ -8,3 +8,4 @@ let canDirFilter = "ALL";
 let canPage = 0;
 let chartWindowStart = null;
 let chartWindowEnd   = null;
+let cursorMs         = null;

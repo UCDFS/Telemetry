@@ -16,6 +16,7 @@ function buildTabs() {
         { id: "status",     label: "Status Word"        },
         { id: "registers",  label: "Register Explorer"  },
         { id: "can",        label: "CAN Log"            },
+        { id: "video",      label: "Video Overlay"      },
     ];
     const bar = document.getElementById("tabBar");
     bar.innerHTML = tabs
@@ -156,6 +157,45 @@ function renderContent() {
     );
     html += `</div>`;
 
+    // ══ VIDEO ══
+    html += `<div class="tab-panel ${activeTab === "video" ? "active" : ""}" id="panel-video">`;
+    html += card(
+        "Video",
+        `<span id="videoFileName">${videoBlobUrl ? "" : "No file loaded"}</span>`,
+        `<div id="videoDropZone" class="video-drop-zone">
+            <div style="font-size:26px;color:var(--text-dim)">&#9654;</div>
+            <div style="font-size:13px;color:var(--text-bright);margin-top:8px">Drop a video file here</div>
+            <div style="font-size:11px;color:var(--text-dim);margin-top:4px">or click to browse</div>
+            <input type="file" id="videoInput" accept="video/*" style="display:none">
+        </div>
+        <div id="videoPlayerSlot"></div>`,
+    );
+    html += card(
+        "Sync to Log",
+        "Align a known moment in the video with its position in the telemetry",
+        `<div class="sync-row">
+            <div class="sync-field">
+                <div class="sync-label">Video time</div>
+                <input type="text" id="syncVideoInput" class="sync-input" placeholder="4:50">
+            </div>
+            <div style="color:var(--text-dim);padding-top:22px">&#8596;</div>
+            <div class="sync-field">
+                <div class="sync-label">Log time (seconds)</div>
+                <input type="text" id="syncLogInput" class="sync-input" placeholder="287.3">
+            </div>
+            <div class="sync-field" style="justify-content:flex-end;gap:6px">
+                <button class="btn-outline" id="detectStopBtn">Detect stop…</button>
+                <button class="btn" id="syncApplyBtn">APPLY SYNC</button>
+            </div>
+        </div>
+        <div style="font-size:10px;color:var(--text-dim);margin-top:10px;line-height:1.8">
+            Tip: pause the video at a clear event (car stops, start of run), note the timestamp shown on the video player, then find the same moment on the Drive or Overview charts using the time slider.
+            <span id="videoLogTime" style="margin-left:12px;color:var(--accent);font-size:11px"></span>
+        </div>
+        <div style="font-size:11px;margin-top:8px"><span id="syncStatus" style="color:var(--accent)"></span></div>`,
+    );
+    html += `</div>`;
+
     // ══ CAN LOG ══
     const filtered   = filterCAN();
     const totalPages = Math.ceil(filtered.length / CAN_PAGE) || 1;
@@ -235,9 +275,11 @@ function renderContent() {
     if (activeTab === "apps")       buildAppsCharts(ds, dsLabels);
     if (activeTab === "status")     buildStatusChart(dsStatus, minMs);
     if (activeTab === "registers")  buildRegChart(minMs);
+    if (activeTab === "video")      initVideoTab();
 
     initTimeSlider();
     applyTimeWindow();
+    updateVideoPlacement();
 }
 
 // ── Time window slider ────────────────────────────────────────────────────────

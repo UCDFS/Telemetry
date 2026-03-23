@@ -1,3 +1,25 @@
+// ── Cursor plugin (video sync line) ──────────────────────────────────────────
+Chart.register({
+    id: "cursor",
+    afterDraw(chart) {
+        if (cursorMs === null) return;
+        const xScale = chart.scales.x;
+        if (!xScale) return;
+        const x = xScale.getPixelForValue(cursorMs);
+        if (x < xScale.left || x > xScale.right) return;
+        const ctx = chart.ctx;
+        ctx.save();
+        ctx.beginPath();
+        ctx.moveTo(x, chart.chartArea.top);
+        ctx.lineTo(x, chart.chartArea.bottom);
+        ctx.strokeStyle = "rgba(255, 210, 60, 0.9)";
+        ctx.lineWidth   = 1.5;
+        ctx.setLineDash([5, 4]);
+        ctx.stroke();
+        ctx.restore();
+    },
+});
+
 // ── Chart.js global defaults ──────────────────────────────────────────────────
 Chart.defaults.color                              = C.textDim;
 Chart.defaults.borderColor                        = C.grid;

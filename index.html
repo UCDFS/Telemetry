@@ -55,6 +55,16 @@
             <span class="gold">★</span> UCD Formula Student · <span class="green">25 Years</span> · BAMOCAR D3-PG Telemetry Debrief · EMRAX 208 · 2025/26 Season <span class="gold">★</span>
         </div>
 
+        <!-- Floating video player (shown when on non-video tabs) -->
+        <div id="floatingVideo" style="display:none">
+            <div id="floatingVideoHeader">
+                <span class="floating-label">VIDEO</span>
+                <span id="floatingVideoTime"></span>
+                <button id="floatingVideoGoTo" title="Go to Video tab">&#9654; Tab</button>
+            </div>
+            <div id="floatingVideoBody"></div>
+        </div>
+
         <!-- Log browser modal -->
         <div id="logsModal" class="modal-overlay" style="display:none">
             <div class="modal">
@@ -74,6 +84,7 @@
         <script src="js/helpers.js"></script>
         <script src="js/parser.js"></script>
         <script src="js/charts.js"></script>
+        <script src="js/video.js"></script>
         <script src="js/ui.js"></script>
         <script src="js/supabase.js"></script>
         <script src="js/app.js"></script>
